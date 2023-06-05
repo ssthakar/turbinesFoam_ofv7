@@ -27,6 +27,9 @@ Class
 Description
     Added mass model based on Strickland (1981) "A vortex model of the
     Darrieus turbine: An analytical and experimental study".
+    To do 
+     Add correct function overload for added mass for towed turbine
+     Figure out how to extract time velocity and add function given by user to get the ddot v term
 
 SourceFiles
     addedMassModel.C

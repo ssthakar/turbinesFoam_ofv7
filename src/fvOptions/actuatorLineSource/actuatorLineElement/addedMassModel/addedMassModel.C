@@ -132,6 +132,10 @@ void Foam::addedMassModel::correct
     }
 
     // Calculate added mass coefficients for a flat plate
+  //
+  //correction needed as the code shown here does not match up with the reference provided, there is no 8 in the denominator 
+  // Additionally we need to add a vddot term here to take into account the towing of the turbine
+  //
     scalar cc = pi/8.0*chordLength_*alphaDot*normalRelVel_/relVelMagSqr;
     scalar cn = -pi/8.0*chordLength_*normVelDot/relVelMagSqr;
     // Moment coefficient is at quarter chord
