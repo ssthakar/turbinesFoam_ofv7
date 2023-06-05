@@ -85,7 +85,7 @@ class addedMassModel
     // Private Member Functions
 
         //- Disallow default bitwise copy construct
-        addedMassModel(const addedMassModel&);
+        addedMassModel(const addedMassModel&); //copy constructor
 
         //- Update previous time step values
         void update();

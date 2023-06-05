@@ -325,11 +325,11 @@ void Foam::fv::actuatorLineElement::multiplyForceRho
     scalar localRho = VGREAT;
     if (cellI >= 0)
     {
-        localRho = rho[cellI];
+        localRho = rho[cellI]; //retrieve the value of the scalar rho at the location of cellI
     }
 
-    reduce(localRho, minOp<scalar>());
-    forceVector_ *= localRho;
+    reduce(localRho, minOp<scalar>()); //assign the lowest value of rho across the entire mesh 
+    forceVector_ *= localRho; //multiplies the force vector with local variable rho and assigns it back to force vector
 }
 
 

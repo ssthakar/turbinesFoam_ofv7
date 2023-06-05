@@ -63,7 +63,7 @@ Foam::addedMassModel::addedMassModel
     normalRelVel_(0.0),
     normalRelVelPrev_(0.0)
 {}
-
+//constructor with intializer list
 
 // * * * * * * * * * * * * * * * * Selectors * * * * * * * * * * * * * * * * //
 
