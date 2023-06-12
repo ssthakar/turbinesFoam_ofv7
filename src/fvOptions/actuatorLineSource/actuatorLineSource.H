@@ -55,20 +55,20 @@ namespace fv
 
 class actuatorLineSource
 :
-    public cellSetOption
+    public cellSetOption //selects the cells into a region that make up the actuator line inherits all the public members of the cellSetOptions
 {
 
 protected:
 
     // Protected data
 
-        //- Total length of geometry in meters
+        //- Total length of geometry in meters //TODO is this the span of the foil
         scalar totalLength_;
 
         //- Dictionary for the profiles' sectional coefficient data
         dictionary profileData_;
 
-        //- Element geometry
+        //- Element geometry // foil profile
         // point, spanDirection, chordLength, chordRefDir, pitch
         List<List<List<scalar> > > elementGeometry_;
 
@@ -226,6 +226,7 @@ public:
         // Source term addition
 
             //- Source term to momentum equation
+            //- these are virtual functions because they can be implemented for base classes as well     
             virtual void addSup
             (
                 fvMatrix<vector>& eqn,

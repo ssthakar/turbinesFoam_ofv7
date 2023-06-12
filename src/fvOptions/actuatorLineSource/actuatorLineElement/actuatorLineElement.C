@@ -805,10 +805,12 @@ void Foam::fv::actuatorLineElement::calculateForce
 }
 
 
+//- TODO understand the implementation, maybe switch to Euler para for simplicity
+// - rotates just the element about a particular axis by a given  scalar radians
 void Foam::fv::actuatorLineElement::rotate
 (
     vector rotationPoint,
-    vector axis,
+    vector axis, //must be normalized 
     scalar radians,
     bool rotateVelocity=true
 )
@@ -850,7 +852,8 @@ void Foam::fv::actuatorLineElement::rotate
 
     // Rotation matrices make a rotation about the origin, so need to subtract
     // rotation point off the point to be rotated.
-    vector point = position_;
+    vector point = position_; //current position of the element
+    // point = point - rotationpoin
     point -= rotationPoint;
 
     // Perform the rotation.
