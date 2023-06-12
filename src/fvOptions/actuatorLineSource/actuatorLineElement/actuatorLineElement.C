@@ -156,7 +156,7 @@ void Foam::fv::actuatorLineElement::rotateVector
     vectorToRotate += rotationPoint;
 }
 
-
+//return tyoe is Foam::label 
 Foam::label Foam::fv::actuatorLineElement::findCell
 (
     const point& location
@@ -197,7 +197,7 @@ void Foam::fv::actuatorLineElement::lookupCoefficients()
     momentCoefficient_ = profileData_.momentCoefficient(angleOfAttack_);
 }
 
-
+//Function to be modified, change to match the NREL paper on improved epsilon 
 Foam::scalar Foam::fv::actuatorLineElement::calcProjectionEpsilon()
 {
     // Lookup Gaussian coeffs from profileData dict if present
@@ -363,7 +363,7 @@ void Foam::fv::actuatorLineElement::applyForceField
     }
 }
 
-
+//velocity sampling to calculate Vrel at actuator line node
 void Foam::fv::actuatorLineElement::calculateInflowVelocity
 (
     const volVectorField& Uin
@@ -896,7 +896,7 @@ void Foam::fv::actuatorLineElement::pitch
     rotate(rotationPoint, spanDirection_, radians, false);
 }
 
-
+//could change this for motion of the entire turbine
 void Foam::fv::actuatorLineElement::translate(vector translationVector)
 {
     position_ += translationVector;

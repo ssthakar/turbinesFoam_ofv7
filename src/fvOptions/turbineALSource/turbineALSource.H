@@ -105,6 +105,7 @@ protected:
         PtrList<actuatorLineSource> blades_;
 
         //- Blade definitions dictionary
+        //- Sub-dictionary present in the fvOptions file
         dictionary bladesDict_;
 
         //- List of blade names
@@ -163,7 +164,7 @@ protected:
             vector axis,
             scalar radians
         );
-
+      // virtual functions to be over-ridden by the derived turbine classes like Axial and cross-flow
         //- Create actuator lines for blades
         virtual void createBlades();
 

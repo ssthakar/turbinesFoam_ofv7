@@ -67,7 +67,7 @@ protected:
     // Protected data
 
         //- Coefficients dictionary
-        const dictionary dict_; //is this the fvOptions dict
+        const dictionary dict_;
 
         //- Name of element
         const word name_;
