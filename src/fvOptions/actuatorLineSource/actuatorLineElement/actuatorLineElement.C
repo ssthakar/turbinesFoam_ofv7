@@ -114,6 +114,8 @@ void Foam::fv::actuatorLineElement::read()
 }
 
 
+//- Rotates about particular axis
+
 void Foam::fv::actuatorLineElement::rotateVector
 (
     vector& vectorToRotate,
@@ -156,10 +158,10 @@ void Foam::fv::actuatorLineElement::rotateVector
     vectorToRotate += rotationPoint;
 }
 
-//return tyoe is Foam::label 
+//- returns the cell id
 Foam::label Foam::fv::actuatorLineElement::findCell
-(
-    const point& location
+(   
+    const point& location //typedef of a vector
 )
 {
     if (Pstream::parRun())
@@ -197,7 +199,8 @@ void Foam::fv::actuatorLineElement::lookupCoefficients()
     momentCoefficient_ = profileData_.momentCoefficient(angleOfAttack_);
 }
 
-//Function to be modified, change to match the NREL paper on improved epsilon 
+
+// this is where the blurring part is happening
 Foam::scalar Foam::fv::actuatorLineElement::calcProjectionEpsilon()
 {
     // Lookup Gaussian coeffs from profileData dict if present
@@ -363,15 +366,17 @@ void Foam::fv::actuatorLineElement::applyForceField
     }
 }
 
+
+// users the AALM formulation maybe
 //velocity sampling to calculate Vrel at actuator line node
 void Foam::fv::actuatorLineElement::calculateInflowVelocity
 (
-    const volVectorField& Uin
+    const volVectorField& Uin //this is the velocity vector field
 )
 {
     // Find local flow velocity by interpolating to element location
-    inflowVelocity_ = vector(VGREAT, VGREAT, VGREAT);
-    vector inflowVelocityPoint = position_;
+    inflowVelocity_ = vector(VGREAT, VGREAT, VGREAT); // set the inflowVelocity_ to a very high value
+    vector inflowVelocityPoint = position_; //position is the position vector of the actuatorLineElement
     interpolationCellPoint<vector> UInterp(Uin);
     
     // If the flow only is sampled in the center
@@ -778,7 +783,7 @@ void Foam::fv::actuatorLineElement::calculateForce
             dragCoefficient_,
             momentCoefficient_,
             degToRad(angleOfAttack_),
-            mag(chordDirection_ & relativeVelocity_),
+            mag(chordDirection_ & relativeVelocity_), //the & operator overload for two vectors in openFOAM does a bitwise inned product
             mag(planformNormal_ & relativeVelocity_)
         );
     }

@@ -37,6 +37,8 @@ SourceFiles
 
 #include "List.H"
 #include "dictionary.H"
+#include "floatScalar.H"
+#include "scalar.H"
 #include "vector.H"
 #include "actuatorLineElement.H"
 #include "cellSetOption.H"
@@ -119,6 +121,10 @@ protected:
 
         //- Switch for correcting end effects
         bool endEffectsActive_;
+
+        //- standar Newton-Euler State vector
+        List<scalar> state_;
+        
 
 
     // Protected Member Functions
@@ -209,6 +215,12 @@ public:
             //- Set rotational velocity of all elements for flow curvature
             //  correction
             void setOmega(scalar omega);
+            
+            //function to update the state vector of the entire actuator line from the input
+            void updateState();
+            
+            //- function to get the current state of the actuator line
+            List<scalar> getState(); 
 
 
         // Evaluation
@@ -222,7 +234,8 @@ public:
             //- Print dictionary values
             virtual void printCoeffs() const;
 
-
+        
+            
         // Source term addition
 
             //- Source term to momentum equation

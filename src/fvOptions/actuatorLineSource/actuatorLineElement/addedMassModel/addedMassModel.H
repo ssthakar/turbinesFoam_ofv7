@@ -49,7 +49,7 @@ namespace Foam
 /*---------------------------------------------------------------------------*\
                          Class addedMassModel Declaration
 \*---------------------------------------------------------------------------*/
-
+// Implement a added mass model that can take into account general motion of the rotor and not just rotation 
 class addedMassModel
 {
     // Private data

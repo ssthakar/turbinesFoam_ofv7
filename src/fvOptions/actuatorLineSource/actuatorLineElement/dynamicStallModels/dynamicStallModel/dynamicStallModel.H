@@ -121,9 +121,9 @@ public:
             profileData& profileData
         );
 
-
+   tmp<dynamicStallModel> tmp1; 
     // Selectors
-
+        
         //- Select from components
         static autoPtr<dynamicStallModel> New
         (
