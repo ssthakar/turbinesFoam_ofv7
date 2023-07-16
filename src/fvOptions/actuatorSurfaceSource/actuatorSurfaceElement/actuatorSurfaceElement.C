@@ -24,7 +24,6 @@ scalar Foam::fv::actuatorSurfaceElement::phiR(scalar r)
     return phiR;
 }
 
-
 // discrete delta function to calculate flow velocity at element location
 scalar Foam::fv::actuatorSurfaceElement::discreteDeltaFunction(label cellI)
 { 
