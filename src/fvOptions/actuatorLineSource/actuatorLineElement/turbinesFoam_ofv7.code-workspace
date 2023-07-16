@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*Dict": "OpenFOAM",
+			"*Properties": "OpenFOAM",
+			"fvSchemes": "OpenFOAM",
+			"fvSolution": "OpenFOAM",
+			"fvOptions": "OpenFOAM",
+			"**/constant/g": "OpenFOAM",
+			"**/0/*": "OpenFOAM",
+			"actuatorLineSource.C": "cpp",
+			"actuatorSurfaceElement.C": "cpp",
+			"actuatorSurfaceSource.C": "cpp",
+			"actuatorLineElement.C": "cpp"
+		}
+	}
+}

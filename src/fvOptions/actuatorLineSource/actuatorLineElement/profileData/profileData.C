@@ -93,10 +93,10 @@ Foam::scalar Foam::profileData::interpolate
     }
 }
 
-
+// function that reads in 2D array
 void Foam::profileData::read2DArray
 (
-    List<List<scalar> >& data,
+    List<List<scalar> >& data,   //reference to existing data or 2d List
     word keyword
 )
 {

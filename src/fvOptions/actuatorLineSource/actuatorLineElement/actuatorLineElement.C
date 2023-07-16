@@ -114,8 +114,6 @@ void Foam::fv::actuatorLineElement::read()
 }
 
 
-//- Rotates about particular axis
-
 void Foam::fv::actuatorLineElement::rotateVector
 (
     vector& vectorToRotate,
@@ -158,10 +156,10 @@ void Foam::fv::actuatorLineElement::rotateVector
     vectorToRotate += rotationPoint;
 }
 
-//- returns the cell id
+
 Foam::label Foam::fv::actuatorLineElement::findCell
-(   
-    const point& location //typedef of a vector
+(
+    const point& location
 )
 {
     if (Pstream::parRun())
@@ -200,7 +198,6 @@ void Foam::fv::actuatorLineElement::lookupCoefficients()
 }
 
 
-// this is where the blurring part is happening
 Foam::scalar Foam::fv::actuatorLineElement::calcProjectionEpsilon()
 {
     // Lookup Gaussian coeffs from profileData dict if present
@@ -317,7 +314,7 @@ void Foam::fv::actuatorLineElement::correctFlowCurvature
     }
 }
 
-
+// to give the forces realistic values (the equations use per vol force field)
 void Foam::fv::actuatorLineElement::multiplyForceRho
 (
     const volScalarField& rho
@@ -328,11 +325,11 @@ void Foam::fv::actuatorLineElement::multiplyForceRho
     scalar localRho = VGREAT;
     if (cellI >= 0)
     {
-        localRho = rho[cellI]; //retrieve the value of the scalar rho at the location of cellI
+        localRho = rho[cellI];
     }
 
-    reduce(localRho, minOp<scalar>()); //assign the lowest value of rho across the entire mesh 
-    forceVector_ *= localRho; //multiplies the force vector with local variable rho and assigns it back to force vector
+    reduce(localRho, minOp<scalar>());
+    forceVector_ *= localRho;
 }
 
 
@@ -367,16 +364,14 @@ void Foam::fv::actuatorLineElement::applyForceField
 }
 
 
-// users the AALM formulation maybe
-//velocity sampling to calculate Vrel at actuator line node
 void Foam::fv::actuatorLineElement::calculateInflowVelocity
 (
-    const volVectorField& Uin //this is the velocity vector field
+    const volVectorField& Uin
 )
 {
     // Find local flow velocity by interpolating to element location
-    inflowVelocity_ = vector(VGREAT, VGREAT, VGREAT); // set the inflowVelocity_ to a very high value
-    vector inflowVelocityPoint = position_; //position is the position vector of the actuatorLineElement
+    inflowVelocity_ = vector(VGREAT, VGREAT, VGREAT);
+    vector inflowVelocityPoint = position_;
     interpolationCellPoint<vector> UInterp(Uin);
     
     // If the flow only is sampled in the center
@@ -783,7 +778,7 @@ void Foam::fv::actuatorLineElement::calculateForce
             dragCoefficient_,
             momentCoefficient_,
             degToRad(angleOfAttack_),
-            mag(chordDirection_ & relativeVelocity_), //the & operator overload for two vectors in openFOAM does a bitwise inned product
+            mag(chordDirection_ & relativeVelocity_),
             mag(planformNormal_ & relativeVelocity_)
         );
     }
@@ -810,12 +805,10 @@ void Foam::fv::actuatorLineElement::calculateForce
 }
 
 
-//- TODO understand the implementation, maybe switch to Euler para for simplicity
-// - rotates just the element about a particular axis by a given  scalar radians
 void Foam::fv::actuatorLineElement::rotate
 (
     vector rotationPoint,
-    vector axis, //must be normalized 
+    vector axis,
     scalar radians,
     bool rotateVelocity=true
 )
@@ -857,8 +850,7 @@ void Foam::fv::actuatorLineElement::rotate
 
     // Rotation matrices make a rotation about the origin, so need to subtract
     // rotation point off the point to be rotated.
-    vector point = position_; //current position of the element
-    // point = point - rotationpoin
+    vector point = position_;
     point -= rotationPoint;
 
     // Perform the rotation.
@@ -904,7 +896,7 @@ void Foam::fv::actuatorLineElement::pitch
     rotate(rotationPoint, spanDirection_, radians, false);
 }
 
-//could change this for motion of the entire turbine
+
 void Foam::fv::actuatorLineElement::translate(vector translationVector)
 {
     position_ += translationVector;

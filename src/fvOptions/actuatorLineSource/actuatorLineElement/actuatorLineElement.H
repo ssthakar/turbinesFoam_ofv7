@@ -99,7 +99,6 @@ protected:
         vector chordRefDirection_;
 
         //- Location of element's quarter-chord
-        //- wrt to what origin ???
         vector position_;
 
         //- Velocity of the element
@@ -140,7 +139,7 @@ protected:
         scalar dragCoefficient_;
 
         //- 1/4 chord moment coefficient
-        scalar momentCoefficient_; 
+        scalar momentCoefficient_;
 
         //- Profile name
         word profileName_;

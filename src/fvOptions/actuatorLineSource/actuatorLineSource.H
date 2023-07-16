@@ -37,8 +37,6 @@ SourceFiles
 
 #include "List.H"
 #include "dictionary.H"
-#include "floatScalar.H"
-#include "scalar.H"
 #include "vector.H"
 #include "actuatorLineElement.H"
 #include "cellSetOption.H"
@@ -57,20 +55,20 @@ namespace fv
 
 class actuatorLineSource
 :
-    public cellSetOption //selects the cells into a region that make up the actuator line inherits all the public members of the cellSetOptions
+    public cellSetOption
 {
 
 protected:
 
     // Protected data
 
-        //- Total length of geometry in meters //TODO is this the span of the foil
+        //- Total length of geometry in meters
         scalar totalLength_;
 
         //- Dictionary for the profiles' sectional coefficient data
         dictionary profileData_;
 
-        //- Element geometry // foil profile
+        //- Element geometry
         // point, spanDirection, chordLength, chordRefDir, pitch
         List<List<List<scalar> > > elementGeometry_;
 
@@ -122,15 +120,13 @@ protected:
         //- Switch for correcting end effects
         bool endEffectsActive_;
 
-        //- standar Newton-Euler State vector
-        List<scalar> state_;
-        
-
 
     // Protected Member Functions
 
         //- Create actuator line elements
         void createElements();
+        
+        void testFunc();
 
         //- Read dictionary
         bool read(const dictionary& dict);
@@ -215,12 +211,6 @@ public:
             //- Set rotational velocity of all elements for flow curvature
             //  correction
             void setOmega(scalar omega);
-            
-            //function to update the state vector of the entire actuator line from the input
-            void updateState();
-            
-            //- function to get the current state of the actuator line
-            List<scalar> getState(); 
 
 
         // Evaluation
@@ -234,12 +224,10 @@ public:
             //- Print dictionary values
             virtual void printCoeffs() const;
 
-        
-            
+
         // Source term addition
 
             //- Source term to momentum equation
-            //- these are virtual functions because they can be implemented for base classes as well     
             virtual void addSup
             (
                 fvMatrix<vector>& eqn,
