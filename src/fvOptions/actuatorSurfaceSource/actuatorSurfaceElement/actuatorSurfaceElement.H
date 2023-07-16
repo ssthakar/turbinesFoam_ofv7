@@ -110,6 +110,9 @@ protected:
       //- output stream pointer
       OFstream *outputFile_;
 
+      //- distance from the axis around which the turbine rotates
+      scalar rootDistance_;
+
   //Protected Member Functions
     //- Rotate a vector
       void rotateVector

@@ -137,7 +137,9 @@ Foam::fv::actuatorSurfaceElement::actuatorSurfaceElement
 :
 dict_(dict),
 mesh_(mesh),
-time_(time)
+time_(time),
+meshBoundBox_(mesh_.points(),false) // intialize the meshBoundBox from pointField, false is to not reduce over processors
+
 {
 
 }

@@ -17,7 +17,8 @@
 			"actuatorSurfaceElement.C": "cpp",
 			"actuatorSurfaceSource.C": "cpp",
 			"actuatorLineElement.C": "cpp",
-			"addedMassModel.C": "cpp"
+			"addedMassModel.C": "cpp",
+			"polyMesh.C": "cpp"
 		}
 	}
 }

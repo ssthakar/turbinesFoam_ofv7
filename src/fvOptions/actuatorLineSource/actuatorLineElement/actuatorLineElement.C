@@ -515,7 +515,7 @@ Foam::fv::actuatorLineElement::actuatorLineElement
     dict_(dict),
     name_(name),
     mesh_(mesh),
-    meshBoundBox_(mesh_.points(), false),
+    meshBoundBox_(mesh_.points(), false), 
     planformNormal_(vector::zero),
     velocity_(vector::zero),
     forceVector_(vector::zero),
